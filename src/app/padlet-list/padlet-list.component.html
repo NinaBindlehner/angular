@@ -1,1 +1,24 @@
-<p>padlet-list works!</p>
+<!--p>padlet-list works!</p-->
+<div class="ui middle aligned selection divided list">
+    <a *ngFor="let padlet of padlets" class="item">
+        <div class="content">
+            <div class="header">{{ padlet.title }}</div>
+            <div class="description">{{ padlet.description }}</div>
+            <div class="metadata">
+                <!--span *ngFor="let entry of padlet.entries; last as l">
+                    {{ entry.title}} {{entry.description }}
+                    //<wenns nicht der letzte Autor ist also ungleich L ist, dann rendern wir Beistrich und Leerzeichen>
+                    <span *ngIf="!l">, </span>
+                </span-->
+            </div>
+            <div class="metadata">
+                <span *ngFor="let user of padlet.users; last as l">
+                  {{ user.image }} {{ user.firstname}} {{ user.lastname }}
+                  <!--wenns nicht der letzte User ist also ungleich L ist, dann rendern wir Beistrich und Leerzeichen-->
+                  <span *ngIf="!l">, </span>
+                </span>
+            </div>
+        </div>
+    </a>
+
+</div>
