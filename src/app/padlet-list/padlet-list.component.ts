@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 //import {Padlet, Entry, User} from "../shared/padlet"; //wenn i das (statt Zeile 3) einkommentiere -> dann auch in in padlets.ts Zeile 13 Array Entries wieder einkommentieren + ev. in padlet-list-component.hmtl sofern Ausgabe klappt
 import {Padlet, User} from "../shared/padlet";
 
@@ -10,6 +10,8 @@ import {Padlet, User} from "../shared/padlet";
 })
 export class PadletListComponent implements OnInit {
   padlets: Padlet[] = [];
+
+  @Output() showDetailsEvent = new EventEmitter<Padlet>();
 
   ngOnInit(): void {
     this.padlets = [
@@ -35,6 +37,10 @@ export class PadletListComponent implements OnInit {
         new User(2, 'Max', 'Muster', 'BildMax', 'max.muster@test.at', 'passwortMax', 1, 1),])
     ];
 
-    console.log(this.padlets);
+    //console.log(this.padlets);
+  }
+
+  showDetails(padlet: Padlet) {
+    this.showDetailsEvent.emit(padlet);
   }
 }
