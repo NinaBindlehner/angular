@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PadletListComponent } from './padlet-list/padlet-list.component';
+import { PadletListItemComponent } from './padlet-list-item/padlet-list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PadletListComponent
+    PadletListComponent,
+    PadletListItemComponent
   ],
   imports: [
     BrowserModule
