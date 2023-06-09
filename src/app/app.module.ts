@@ -8,6 +8,7 @@ import { PadletDetailsComponent } from './padlet-details/padlet-details.componen
 import {PadletStoreService} from "./shared/padlet-store.service";
 import { HomeComponent } from './home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {AppRoutingModule} from "./app-routing.module";
     HomeComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule
+    BrowserModule, AppRoutingModule, HttpClientModule
   ],
   providers: [PadletStoreService],
   bootstrap: [AppComponent]

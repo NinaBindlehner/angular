@@ -10,6 +10,8 @@ export class Padlet {
     public description: string,
     public is_public: boolean, //ev. weggeben
     public user_id: number, //FK user_id
+    public created_at: Date,
+    public updated_at: Date,
     //public entries: Entry[], //Array Entries ev weggeben
     public users: User[] //Array Users ev. weggeben
     //ev. Array von Entries bzw. Array von Users -> wär sinnvoll, aber hab i in Laravel glaub i ned so angegeben
