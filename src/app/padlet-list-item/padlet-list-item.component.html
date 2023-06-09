@@ -2,6 +2,7 @@
   <div class="header">{{ padlet?.title }}</div>
   <div class="description">{{ padlet?.description }}</div>
   <div class="metadata">
+    <span>ID={{ padlet?.id }}</span>
     <!--span *ngFor="let entry of padlet.entries; last as l">
         {{ entry.title}} {{entry.description }}
         //<wenns nicht der letzte Autor ist also ungleich L ist, dann rendern wir Beistrich und Leerzeichen>

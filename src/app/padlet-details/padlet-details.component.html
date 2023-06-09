@@ -40,7 +40,7 @@
       <img *ngFor="let thumbnail of book.images" [src]="thumbnail.url">
     </div>
   </div-->
-  <button (click)="showBookList()" class="ui red button">Zurück zur Liste</button>
+  <button [routerLink]="'/padlets'" class="ui red button">Zurück zur Liste</button>
 
 </div>
 
