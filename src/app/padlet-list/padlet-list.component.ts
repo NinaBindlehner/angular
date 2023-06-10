@@ -17,8 +17,7 @@ export class PadletListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.padlets = this.bs.getAll(); //Bücherliste vom Book-store.service laden + zuweisen
-    //console.log(this.padlets);
+    this.bs.getAll().subscribe(res => this.padlets = res);
   }
 
 }

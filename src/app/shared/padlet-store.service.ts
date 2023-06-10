@@ -1,46 +1,33 @@
 import { Injectable } from '@angular/core';
 import {Padlet, User} from "./padlet";
+import { HttpClient } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError, retry} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PadletStoreService {
 
-  padlets : Padlet[];
+  private api = 'http://padlet23.s2010456003.student.kwmhgb.at/api';
 
-  constructor() {this.padlets = [
-    new Padlet(1,
-      'Titel1',
-      'Beschreibung Padlet1',
-      true,1,
-      new Date(2023, 5, 13), new Date(2023, 5, 15),
-      /*[new Entry(1,'Entry1', 'Beschreibung Entry1', 1, 1),
-        new Entry(2,'Entry2','Beschreibung Entry2', 1, 2),
-        new Entry(3,'Entry3','Beschreibung Entry3', 1, 3),
-        new Entry(4,'Entry4', 'Beschreibung Entry4', 1, 4)],*/
-      [new User(1, 'Nina', 'Bindlehner', 'https://de.wikipedia.org/wiki/Hauskatze#/media/Datei:Hauskatze_langhaar.jpg', 'nina.bindi@test.at', 'passwortNina', 1, 1),
-        new User(2, 'Max', 'Muster', 'BildMax', 'max.muster@test.at', 'passwortMax', 1, 0)]),
-    new Padlet(2,
-      'Titel2',
-      'Beschreibung Padlet2',
-      true,2,
-      new Date(2023, 4, 22), new Date(2023, 5, 1),
-      /*[new Entry(1,'Entry1', 'Beschreibung Entry1', 2, 2),
-        new Entry(2,'Entry2','Beschreibung Entry2', 1, 2),
-        new Entry(3,'Entry3','Beschreibung Entry3', 1, 3),
-        new Entry(4,'Entry4', 'Beschreibung Entry4', 1, 4)],*/
-      [new User(1, 'Nina', 'Bindlehner', 'https://de.wikipedia.org/wiki/Hauskatze#/media/Datei:Hauskatze_langhaar.jpg', 'nina.bindi@test.at', 'passwortNina', 1, 0),
-        new User(2, 'Max', 'Muster', 'BildMax', 'max.muster@test.at', 'passwortMax', 1, 1)])
-  ];
+  constructor(private http: HttpClient) {
 
   }
 
-  getAll() {
-    return this.padlets;
+  getAll() : Observable<Array<Padlet>>{
+    return this.http.get<Array<Padlet>>(`${this.api}/padlets`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
-  getSingle (id: string) : Padlet {
-    return <Padlet>this.padlets.find(padlet => padlet.id.toString() === id);
+  getSingle (id: string) : Observable<Padlet> {
+    return this.http.get<Padlet>(`${this.api}/padlets/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  //behandelt Fehler vom Observable + schmeißt ihn zurück
+  private errorHandler (error: Error | any) : Observable<any> {
+    return throwError(error);
   }
 
 }

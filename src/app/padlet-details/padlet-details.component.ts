@@ -20,8 +20,7 @@ export class PadletDetailsComponent {
 
   ngOnInit() {
     const params = this.route.snapshot.params; //Array wo die verschiedenen Parameter der URL zur Verfügung stehen
-    //Parameter rausholen
-    this.padlet = this.bs.getSingle(params['id']);
+    this.bs.getSingle(params['id']).subscribe((p:Padlet) => this.padlet = p);
   }
 
   getRating (num: number) { //zuvor noch in padlet-details.component.html Ratings irgendwie einführen (Zeile 26-31) -> is bei mir eigene Entität
