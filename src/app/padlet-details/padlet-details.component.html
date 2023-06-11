@@ -1,56 +1,46 @@
 <div class="ui grid" *ngIf="padlet">
-  <!--Ui für Buch-Detailansicht-->
-  <div class="four wide column"></div>
-  <!--div class="four wide column">
-    <img class="ui large image" *ngIf="book.images && book.images[0]"
-         [src]="book.images[0].url">
-  </div-->
   <div class="twelve wide column">
     <h1 class="ui header">{{ padlet.title }}</h1>
-    <h3 class="ui header">{{ padlet.description }}</h3>
+    <div class="sixteen wide column">
+      <h3 class="ui header">Beschreibung</h3>
+      {{ padlet.description }}
+    </div>
+    <div class="ui divider"></div>
     <div>Erstellt am: {{ padlet.created_at }}</div>
     <div>Zuletzt bearbeitet am: {{ padlet.updated_at }}</div>
     <div class="ui divider"></div>
     <div class="ui grid">
-      <div class="four wide column">
+      <div class="sixteen wide column">
         <h4 class="ui header">User</h4>
         <span *ngFor="let user of padlet.users; last as l">
-{{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">,</span></span>
+          <img src="{{ user.image }}" width="25em">
+                {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">,</span><br>
+        </span><br>
       </div>
-      <!--div class="four wide column">
-        <h4 class="ui header">ISBN</h4>
-        {{ book.isbn }}
-      </div-->
-      <!--div class="four wide column">
-        <h4 class="ui header">Erschienen</h4>
-        {{ book.published }}
-      </div-->
-      <!--div class="four wide column">
-        <h4 class="ui header">Rating</h4>
-        <div class="ui star rating" *ngIf="book.rating">
-          <i *ngFor="let r of getRating(book.rating)" class="yellow star icon"></i>
-        </div>
-      </div-->
     </div>
+    <div class="twelve wide column">
+      <span *ngFor="let entry of padlet?.entries; last as l">
+        <div class="ui card">
+          <div class="ui content block">
+              <h5 class="ui header">{{ entry.title}}</h5>
+               {{ entry.description }}
+          </div>
+        </div><br>
+      </span>
+    </div><br>
+
+    <button [routerLink]="'/padlets'" class="ui tiny blue button">
+      <i class="arrow left icon"></i>Zurück zur Liste
+    </button>
+
+    <a class="ui tiny teal icon button" [routerLink]="['../../admin/', padlet.id]">
+      <i class="write icon"></i>Padlet bearbeiten
+    </a>
+
+    <button class="ui tiny violet labeled icon button" (click)="removePadlet()">
+      <i class="remove icon"></i>Padlet löschen
+    </button>
+
   </div>
-  <div class="sixteen wide column">
-    <h3 class="ui header">Beschreibung</h3>
-    {{ padlet.description }}
-  </div>
-  <!--div class="sixteen wide column">
-    <div class="ui small images">
-      <img *ngFor="let thumbnail of book.images" [src]="thumbnail.url">
-    </div>
-  </div-->
-  <button [routerLink]="'/padlets'" class="ui red button">Zurück zur Liste</button>
-
-  <a class="ui tiny yellow icon button" [routerLink]="['../../admin/', padlet.id]">
-    <i class="write icon"></i>Padlet bearbeiten
-  </a>
-
-  <button class="ui tiny blue labeled icon button" (click)="removePadlet()">
-    <i class="remove icon"></i>Padlet löschen
-  </button>
-
 </div>
 
