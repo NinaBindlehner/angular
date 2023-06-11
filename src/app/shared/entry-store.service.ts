@@ -14,10 +14,10 @@ export class EntryStoreService {
 
   constructor(private http: HttpClient) { }
 
-  /*getAll(id: string) : Observable<Array<Entry>>{
-    return this.http.get<Array<Entry>>(`${this.api}/padlets/${id}`)
+  getAll() : Observable<Array<Entry>>{
+    return this.http.get<Array<Entry>>(`${this.api}/entries`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
-  }*/
+  }
 
   getSingle (id: string) : Observable<Entry> {
     return this.http.get<Entry>(`${this.api}/entries/${id}`)

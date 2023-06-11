@@ -48,11 +48,12 @@
     <div *ngIf="errors['rating']" class="ui negative message">{{
       errors['rating'] }}</div>
   </div-->
+
+
   <!--div class="field">
     <label>Einträge</label>
     <div formArrayName="entries">
-      <div class="fields" *ngFor="let control of entries?.controls; index
-as i; last as l" [formGroupName]="i">
+      <div class="fields" *ngFor="let control of entries?.controls; index as i; last as l" [formGroupName]="i">
         <input type="hidden" formControlName="id">
         <div class="six wide field">
           <label>Titel</label>
@@ -72,6 +73,33 @@ as i; last as l" [formGroupName]="i">
     <div *ngIf="errors['entries']" class="ui negative message">{{
       errors['entries'] }}</div>
   </div-->
+
+
+  <!--div class="field">
+    <label>Einträge</label>
+    <div formArrayName="entries">
+      <div class="fields" *ngFor="let entry of padlet?.entries; index as i; last as l" [formGroupName]="i">
+        <input type="hidden" formControlName="id">
+        <div class="six wide field">
+          <label>Titel</label>
+          <input formControlName="title">
+        </div>
+        <div class="six wide field">
+          <label>Beschreibung</label>
+          <input formControlName="description">
+        </div>
+        <input type="hidden" formControlName="padlet_id">
+        <input type="hidden" formControlName="user_id">
+        <div class="one wide field" *ngIf="l">
+          <button (click)="addEntriesControl()" class="ui large button" type="button">+</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="errors['entries']" class="ui negative message">{{
+      errors['entries'] }}</div>
+  </div-->
+
+
   <button type="submit" class="ui button"
           [disabled]="padletForm.invalid">Speichern</button>
 </form>
