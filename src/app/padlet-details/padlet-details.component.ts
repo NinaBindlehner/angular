@@ -3,6 +3,7 @@ import { Padlet } from '../shared/padlet';
 import {PadletStoreService} from "../shared/padlet-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFactory} from "../shared/padlet-factory";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -17,7 +18,8 @@ export class PadletDetailsComponent {
   constructor(
     private bs: PadletStoreService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class PadletDetailsComponent {
     if (confirm('Möchtest du das Padlet wirklch löschen?')) {
       this.bs.remove(this.padlet.id.toString()).subscribe((res:any) => this.router.navigate(['../'],
         { relativeTo: this.route}));
+      this.toastr.success('Das Padlet wurde erfolgreich gelöscht');
     }
   }
 }

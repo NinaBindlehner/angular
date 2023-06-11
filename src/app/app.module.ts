@@ -9,6 +9,10 @@ import {PadletStoreService} from "./shared/padlet-store.service";
 import { HomeComponent } from './home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
+import { PadletFormComponent } from './padlet-form/padlet-form.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,10 +20,13 @@ import {HttpClientModule} from "@angular/common/http";
     PadletListComponent,
     PadletListItemComponent,
     PadletDetailsComponent,
-    HomeComponent
+    HomeComponent,
+    PadletFormComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule
+    BrowserModule, AppRoutingModule, HttpClientModule,
+    BrowserAnimationsModule, ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [PadletStoreService],
   bootstrap: [AppComponent]
