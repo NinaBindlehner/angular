@@ -6,6 +6,7 @@ import {PadletFactory} from "../shared/padlet-factory";
 import {ToastrService} from "ngx-toastr";
 import {EntryFactory} from "../shared/entry-factory";
 import {EntryStoreService} from "../shared/entry-store.service";
+import {FormArray, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -16,15 +17,19 @@ import {EntryStoreService} from "../shared/entry-store.service";
 export class PadletDetailsComponent {
 
   padlet : Padlet = PadletFactory.empty();
+  entries : FormArray;
   //entry : Entry = EntryFactory.empty(); //ev. weggeben
 
   constructor(
     private bs: PadletStoreService,
+    private fb: FormBuilder,
     //private es: EntryStoreService, //ev. weggeben -> nur wenn Entry löschen möglich in Detailansicht
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService
-  ) { }
+  ) {
+    this.entries = this.fb.array([]);
+  }
 
   ngOnInit() {
     const params = this.route.snapshot.params; //Array wo die verschiedenen Parameter der URL zur Verfügung stehen
@@ -42,4 +47,10 @@ export class PadletDetailsComponent {
       this.toastr.success('Das Padlet wurde erfolgreich gelöscht');
     }
   }
+
+  //Pusht Subformular also neue Form-Group in Entries-Array rein
+  addEntriesControl() {
+    this.entries.push(this.fb.group({id: 0, title: null, description: null, padlet_id: 0, user_id: 0}));
+  }
+
 }

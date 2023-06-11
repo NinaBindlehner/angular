@@ -49,7 +49,7 @@ export class PadletFormComponent implements OnInit {
 
     //einzelne Property vom Padlet an die Formularfelder binden + Validierung
     initPadlet() {
-      this.buildEntriesArray();
+      //this.buildEntriesArray();
       this.padletForm = this.fb.group({
         id: this.padlet.id,
         title: [this.padlet.title, Validators.required],
@@ -58,7 +58,7 @@ export class PadletFormComponent implements OnInit {
       })
     }
 
-    buildEntriesArray() {
+    /*buildEntriesArray() {
       if(this.padlet.entries){
         this.entries = this.fb.array([]);
         for (let entry of this.padlet.entries) {
@@ -72,7 +72,7 @@ export class PadletFormComponent implements OnInit {
           this.entries.push(fg);
         }
       }
-    }
+    }*/
 
     //Pusht Subformular also neue Form-Group in Entries-Array rein
     addEntriesControl() {

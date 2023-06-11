@@ -4,6 +4,7 @@ import {EntryStoreService} from "../shared/entry-store.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EntryFactory} from "../shared/entry-factory";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'bs-entry-form',
@@ -32,7 +33,8 @@ export class EntryFormComponent implements OnInit {
     private fb: FormBuilder,
     private es: EntryStoreService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.entryForm = this.fb.group({});
     //this.entries = this.fb.array([]); //ev. weggeben
@@ -61,6 +63,14 @@ export class EntryFormComponent implements OnInit {
       description: [this.entry.description, Validators.required],
       //isPublic: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
     })
+  }
+
+  removeEntry() {
+    if (confirm('Möchtest du den Beitrag wirklch löschen?')) {
+      this.es.remove(this.entry.id.toString()).subscribe((res:any) => this.router.navigate(['/padlets'],
+        { relativeTo: this.route}));
+      this.toastr.success('Der Eintrag wurde erfolgreich gelöscht');
+    }
   }
 
   //TODO submit inkl. richtigem Ersteller

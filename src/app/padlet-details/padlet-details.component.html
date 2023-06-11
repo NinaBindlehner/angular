@@ -29,8 +29,17 @@
                 [routerLink]="['../../newpadlet/', padlet.id]"-->
                 <i class="write icon"></i>Eintrag bearbeiten
               </a>
+              <!--a class="ui tiny teal icon button" [routerLink]="['/padlets/', padlet.id, 'entries', entry.id]">
+                <i class="write icon"></i>Neuen Eintrag hinzufügen
+              </a-->
+              <!--div class="one wide field" *ngIf="l">
+                <button (click)="addEntriesControl()" class="ui large button" type="button">+</button>
+              </div-->
           </div>
         </div><br>
+        <div class="one wide field" *ngIf="l">
+          <button (click)="addEntriesControl()" class="ui large button" type="button">+</button>
+        </div>
       </span>
     </div><br>
 
