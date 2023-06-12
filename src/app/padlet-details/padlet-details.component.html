@@ -37,11 +37,15 @@
               </div-->
           </div>
         </div><br>
-        <div class="one wide field" *ngIf="l">
+        <!--div class="one wide field" *ngIf="l">
           <button (click)="addEntriesControl()" class="ui large button" type="button">+</button>
-        </div>
+        </div-->
       </span>
-    </div><br>
+    </div>
+    <div class="one wide field">
+          <button (click)="addEntriesControl()" class="ui large button" type="button"
+                  [routerLink]="['/padlets/', padlet.id, 'entries']">+</button>
+    </div><br><br>
 
     <button [routerLink]="'/padlets'" class="ui tiny blue button">
       <i class="arrow left icon"></i>Zurück zur Liste

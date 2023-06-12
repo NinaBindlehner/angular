@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'padlets/:id', component: PadletDetailsComponent },
   { path: 'newpadlet', component: PadletFormComponent },
   { path: 'newpadlet/:id', component: PadletFormComponent },
+  { path: 'padlets/:id/entries', component: EntryFormComponent}, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
   { path: 'padlets/:id/entries/:id', component: EntryFormComponent}
 
 ];

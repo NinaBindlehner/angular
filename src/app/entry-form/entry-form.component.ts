@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EntryFactory} from "../shared/entry-factory";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {Padlet} from "../shared/padlet";
+import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
 
 @Component({
   selector: 'bs-entry-form',
@@ -62,7 +64,9 @@ export class EntryFormComponent implements OnInit {
       title: [this.entry.title, Validators.required],
       description: [this.entry.description, Validators.required],
       //isPublic: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
-    })
+    });
+    this.entryForm.statusChanges.subscribe(() =>
+      this.updateErrorMessages());
   }
 
   removeEntry() {
@@ -73,7 +77,50 @@ export class EntryFormComponent implements OnInit {
     }
   }
 
+  updateErrorMessages() {
+    console.log("Ist Formular invalid? " + this.entryForm.invalid);
+    this.errors = {};
+
+    for (const message of PadletFormErrorMessages) {
+      const control = this.entryForm.get(message.forControl);
+      if (
+        control &&
+        control.dirty &&
+        control.invalid && control.errors &&
+        control.errors[message.forValidator] &&
+        !this.errors[message.forControl]
+      ) {
+        this.errors[message.forControl] = message.text;
+      }
+      console.log(message);
+    }
+  }
+
   //TODO submit inkl. richtigem Ersteller
-  submitForm(){}
+  submitForm(){
+    /*this.padletForm.value.entries = this.padletForm.value.entries.filter(
+        (thumbnail: { url: string }) => thumbnail.url //ev. anpassen an Entries
+      )*/
+    const entry: Entry = EntryFactory.fromObject(this.entryForm.value); //Werte aus Formular in neues Padlet
+    //padlet.users = this.padlet.users; //werden einfach rüberkopiert
+
+    if (this.isUpdatingEntry) {
+      this.es.update(entry).subscribe(res => {
+        this.router.navigate(["/padlets"], {
+          relativeTo: this.route
+        });
+      });
+    } else { //neues Padlet anlegen
+      entry.user_id = 1;
+      console.log(entry);
+      this.es.create(entry).subscribe(res => {
+        this.entry = EntryFactory.empty();
+        this.entryForm.reset(EntryFactory.empty()); //reset also alle Werte, die im Entry-Formular drinnen sind, werden mit EmptyEntry-Objekt überschrieben
+        this.router.navigate(["../../padlets"], {
+          relativeTo: this.route
+        });
+      });
+    }
+  }
 
 }
