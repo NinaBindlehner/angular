@@ -5,6 +5,7 @@ import {PadletDetailsComponent} from "./padlet-details/padlet-details.component"
 import {NgModule} from "@angular/core";
 import {PadletFormComponent} from "./padlet-form/padlet-form.component";
 import {EntryFormComponent} from "./entry-form/entry-form.component";
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
@@ -14,8 +15,9 @@ const routes: Routes = [
   { path: 'padlets/:id', component: PadletDetailsComponent },
   { path: 'newpadlet', component: PadletFormComponent },
   { path: 'newpadlet/:id', component: PadletFormComponent },
-  { path: 'padlets/:id/entries', component: EntryFormComponent}, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
-  { path: 'padlets/:id/entries/:id', component: EntryFormComponent}
+  { path: 'padlets/:id/entries', component: EntryFormComponent }, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
+  { path: 'padlets/:id/entries/:id', component: EntryFormComponent },
+  { path: 'login', component: LoginComponent }
 
 ];
 

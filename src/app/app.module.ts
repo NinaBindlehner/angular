@@ -14,6 +14,7 @@ import {ToastrModule} from "ngx-toastr";
 import { PadletFormComponent } from './padlet-form/padlet-form.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { EntryFormComponent } from './entry-form/entry-form.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EntryFormComponent } from './entry-form/entry-form.component';
     PadletDetailsComponent,
     HomeComponent,
     PadletFormComponent,
-    EntryFormComponent
+    EntryFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule,
