@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
     if (val.username && val.password) {
       this.authService.login(val.username, val.password).subscribe((res:any) => {
         console.log(res);
+        this.authService.setSesstionStorage((res as Response).access_token);
       });
     }
   }
