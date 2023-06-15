@@ -1,0 +1,17 @@
+<div class="ui search">
+  <!--div class="ui icon input"></div-->
+  Nach Padlets suchen:<br>
+  <input type="text" placeholder="Suche..." (keyup)="keyup.emit(searchTerm.value)"
+         #searchTerm class="prompt">
+  <i class="search icon"></i>
+</div>
+<div class="results transition" [ngClass]=" { visible: foundPadlets.length }">
+  <a href (click)="padletSelected.emit(padlet); false" class="result"
+     *ngFor="let padlet of foundPadlets">
+    <div class="content">
+      <div class="title">{{ padlet.title }}</div>
+    </div>
+  </a>
+</div>
+
+

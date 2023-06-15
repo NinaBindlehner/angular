@@ -25,6 +25,11 @@ export class PadletStoreService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getAllSearch (searchTerm: string) : Observable<Array<Padlet>> {
+    return this.http.get<Padlet>(`${this.api}/padlets/search/${searchTerm}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   create (padlet: Padlet): Observable<any> {
     return this.http.post(`${this.api}/padlets`, padlet)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
