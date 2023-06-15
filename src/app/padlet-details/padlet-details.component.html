@@ -24,7 +24,7 @@
           <div class="ui content block">
               <h5 class="ui header">{{ entry.title}}</h5>
                {{ entry.description }} <br><br>
-              <a class="ui tiny teal icon button" [routerLink]="['/padlets/', padlet.id, 'entries', entry.id]">
+              <a *ngIf="authService.isLoggedIn()" class="ui tiny teal icon button" [routerLink]="['/padlets/', padlet.id, 'entries', entry.id]">
                 <!--padlets/:id/entries/:id
                 [routerLink]="['../../newpadlet/', padlet.id]"-->
                 <i class="write icon"></i>Eintrag bearbeiten
@@ -43,7 +43,7 @@
       </span>
     </div>
     <div class="one wide field">
-          <button (click)="addEntriesControl()" class="ui large button" type="button"
+          <button *ngIf="authService.isLoggedIn()" (click)="addEntriesControl()" class="ui large button" type="button"
                   [routerLink]="['/padlets/', padlet.id, 'entries']">+</button>
     </div><br><br>
 
@@ -51,11 +51,11 @@
       <i class="arrow left icon"></i>Zurück zur Liste
     </button>
 
-    <a class="ui tiny teal icon button" [routerLink]="['../../newpadlet/', padlet.id]">
+    <a *ngIf="authService.isLoggedIn()" class="ui tiny teal icon button" [routerLink]="['../../newpadlet/', padlet.id]">
       <i class="write icon"></i>Padlet bearbeiten
     </a>
 
-    <button class="ui tiny violet labeled icon button" (click)="removePadlet()">
+    <button *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button" (click)="removePadlet()">
       <i class="remove icon"></i>Padlet löschen
     </button>
 

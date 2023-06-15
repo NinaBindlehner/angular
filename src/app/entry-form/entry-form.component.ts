@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {Padlet} from "../shared/padlet";
 import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-entry-form',
@@ -17,6 +18,7 @@ import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages
 export class EntryFormComponent implements OnInit {
   //entry: Entry | undefined;
   entries: Entry[] = [];
+  //padlet_id: number | undefined;
 
   /*constructor(private es: EntryStoreService) {
   }
@@ -36,7 +38,8 @@ export class EntryFormComponent implements OnInit {
     private es: EntryStoreService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public authService: AuthenticationService
   ) {
     this.entryForm = this.fb.group({});
     //this.entries = this.fb.array([]); //ev. weggeben
@@ -77,6 +80,11 @@ export class EntryFormComponent implements OnInit {
     }
   }
 
+  /*addEntriesControl() {
+    //this.entries.push(this.fb.group({id: 0, title: null, description: null, padlet_id: 0, user_id: 0}));
+    this.entries.push({id: 0, title: "", description: "", padlet_id: 0, user_id:0});
+  }*/
+
   updateErrorMessages() {
     console.log("Ist Formular invalid? " + this.entryForm.invalid);
     this.errors = {};
@@ -92,7 +100,7 @@ export class EntryFormComponent implements OnInit {
       ) {
         this.errors[message.forControl] = message.text;
       }
-      console.log(message);
+      //console.log(message);
     }
   }
 
@@ -101,22 +109,22 @@ export class EntryFormComponent implements OnInit {
     /*this.padletForm.value.entries = this.padletForm.value.entries.filter(
         (thumbnail: { url: string }) => thumbnail.url //ev. anpassen an Entries
       )*/
-    const entry: Entry = EntryFactory.fromObject(this.entryForm.value); //Werte aus Formular in neues Padlet
+    const entry: Entry = EntryFactory.fromObject(this.entryForm.value); //Werte aus Formular in neuen Entry
     //padlet.users = this.padlet.users; //werden einfach rüberkopiert
 
     if (this.isUpdatingEntry) {
       this.es.update(entry).subscribe(res => {
-        this.router.navigate(["/padlets"], {
+        this.router.navigate(["../../"], {
           relativeTo: this.route
         });
       });
-    } else { //neues Padlet anlegen
+    } else { //neuen Eintrag anlegen
       entry.user_id = 1;
       console.log(entry);
       this.es.create(entry).subscribe(res => {
         this.entry = EntryFactory.empty();
         this.entryForm.reset(EntryFactory.empty()); //reset also alle Werte, die im Entry-Formular drinnen sind, werden mit EmptyEntry-Objekt überschrieben
-        this.router.navigate(["../../padlets"], {
+        this.router.navigate(["../"], {
           relativeTo: this.route
         });
       });

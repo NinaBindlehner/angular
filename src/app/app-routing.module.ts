@@ -6,6 +6,7 @@ import {NgModule} from "@angular/core";
 import {PadletFormComponent} from "./padlet-form/padlet-form.component";
 import {EntryFormComponent} from "./entry-form/entry-form.component";
 import {LoginComponent} from "./login/login.component";
+import {CanNavigateToNewPadletGuard} from "./can-navigate-to-new-padlet.guard";
 
 
 const routes: Routes = [
@@ -13,10 +14,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'padlets', component: PadletListComponent },
   { path: 'padlets/:id', component: PadletDetailsComponent },
-  { path: 'newpadlet', component: PadletFormComponent },
-  { path: 'newpadlet/:id', component: PadletFormComponent },
-  { path: 'padlets/:id/entries', component: EntryFormComponent }, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
-  { path: 'padlets/:id/entries/:id', component: EntryFormComponent },
+  { path: 'newpadlet', component: PadletFormComponent, canActivate:[CanNavigateToNewPadletGuard]},
+  { path: 'newpadlet/:id', component: PadletFormComponent, canActivate:[CanNavigateToNewPadletGuard] },
+  { path: 'padlets/:id/entries', component: EntryFormComponent, canActivate:[CanNavigateToNewPadletGuard] }, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
+  { path: 'padlets/:id/entries/:id', component: EntryFormComponent, canActivate:[CanNavigateToNewPadletGuard] },
   { path: 'login', component: LoginComponent }
 
 ];
@@ -24,7 +25,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [CanNavigateToNewPadletGuard]
 })
 
 export class AppRoutingModule {}

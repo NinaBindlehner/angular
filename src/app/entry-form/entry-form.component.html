@@ -24,7 +24,7 @@
   <!--input type="hidden" formControlName="padlet_id">
   <input type="hidden" formControlName="user_id"-->
 
-  <button [routerLink]="'/padlets'" class="ui tiny blue button">
+  <button [routerLink]="['../']" class="ui tiny blue button">
     <i class="arrow left icon"></i>Zurück zur Übersicht
   </button>
 
@@ -36,11 +36,17 @@
     <i class="remove icon"></i>Eintrag löschen
   </button-->
 
-  <button class="ui tiny violet labeled icon button" (click)="removeEntry()">
+  <button *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button" (click)="removeEntry()">
     <i class="remove icon"></i>Eintrag löschen
   </button>
 
-  <button type="submit" class="ui button"
+  <button *ngIf="authService.isLoggedIn()" type="submit" class="ui button"
           [disabled]="entryForm.invalid">Speichern</button>
+
+  <!--button type="submit" class="ui button" (click)="addEntriesControl()"
+          [disabled]="entryForm.invalid">Neuen Eintrag speichern</button-->
+
+  <!--button type="submit" class="ui button" (click)="addEntriesControl()"
+          [disabled]="entryForm.invalid">Neuen Eintrag speichern</button-->
 
 </form>

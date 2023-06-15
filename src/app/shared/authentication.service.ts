@@ -33,4 +33,32 @@ export class AuthenticationService {
     sessionStorage.setItem("token", token);
     sessionStorage.setItem("userId", decodedToken.user.id);
   }
+
+  public logout() {
+    this.http.post(`${this.api}/logout`, {});
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userId");
+    console.log("Du hast dich erfolgreich ausgeloggt!");
+  }
+
+  public isLoggedIn() : boolean {
+    if (sessionStorage.getItem("token")) {
+      let token: string = <string>sessionStorage.getItem("token");
+      const decodedToken = jwt_decode(token) as Token;
+      let expirationDate: Date = new Date(0);
+      expirationDate.setUTCSeconds(decodedToken.exp);
+      if (expirationDate < new Date()) {
+        console.log("Der JWT ist abgelaufen");
+        return false;
+      }
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  public isLoggedOut() : boolean {
+    return !this.isLoggedIn();
+  }
 }

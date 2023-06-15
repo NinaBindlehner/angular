@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {EntryFactory} from "../shared/entry-factory";
 import {EntryStoreService} from "../shared/entry-store.service";
 import {FormArray, FormBuilder} from "@angular/forms";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -26,7 +27,8 @@ export class PadletDetailsComponent {
     //private es: EntryStoreService, //ev. weggeben -> nur wenn Entry löschen möglich in Detailansicht
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public authService: AuthenticationService
   ) {
     this.entries = this.fb.array([]);
   }
@@ -50,7 +52,7 @@ export class PadletDetailsComponent {
 
   //Pusht Subformular also neue Form-Group in Entries-Array rein
   addEntriesControl() {
-    this.entries.push(this.fb.group({id: 0, title: null, description: null, padlet_id: 0, user_id: 0}));
+    this.entries.push(this.fb.group({id: 0, title: "", description: "", padlet_id: 0, user_id: 0}));
   }
 
 }
