@@ -119,8 +119,9 @@ export class EntryFormComponent implements OnInit {
         });
       });
     } else { //neuen Eintrag anlegen
-      entry.user_id = 1;
-      console.log(entry);
+      //entry.user_id = 1;
+      const user_id = this.authService.getIdOfCurrentUser();
+      //console.log(entry);
       this.es.create(entry).subscribe(res => {
         this.entry = EntryFactory.empty();
         this.entryForm.reset(EntryFactory.empty()); //reset also alle Werte, die im Entry-Formular drinnen sind, werden mit EmptyEntry-Objekt überschrieben

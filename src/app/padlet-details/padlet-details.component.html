@@ -5,20 +5,35 @@
       <h3 class="ui header">Beschreibung</h3>
       {{ padlet.description }}
     </div>
+    <!--div class="ui heart rating"-->
+    <div>
+      <i class="teal heart icon"></i>
+      <i class="teal heart icon"></i>
+      <i class="teal heart icon"></i>
+      <i class="teal heart icon"></i>
+      <i class="grey heart icon"></i>
+    </div>
     <div class="ui divider"></div>
-    <div>Erstellt am: {{ padlet.created_at }}</div>
-    <div>Zuletzt bearbeitet am: {{ padlet.updated_at }}</div>
+    <div>Erstellt am: {{ padlet.created_at | date:'dd.MM.yyyy' }}</div>
+    <div>Zuletzt bearbeitet am: {{ padlet.updated_at | date:'dd.MM.yyyy' }}</div>
     <div class="ui divider"></div>
     <div class="ui grid">
       <div class="sixteen wide column">
         <h4 class="ui header">User</h4>
+        <b>Ersteller:</b><br>
+        <span>
+          <img class="ui avatar image" src="{{ padlet.user.image }}" width="10em">
+          {{ padlet.user.firstname }} {{ padlet.user.lastname }}
+        </span><br><br>
+        <b>Mitglieder:</b><br>
         <span *ngFor="let user of padlet.users; last as l">
-          <img src="{{ user.image }}" width="25em">
+          <img class="ui avatar image" src="{{ user.image }}" width="10em">
                 {{ user.firstname }} {{ user.lastname }}<span *ngIf="!l">,</span><br>
         </span><br>
       </div>
     </div>
     <div class="twelve wide column">
+      <b>Einträge:</b><br>
       <span *ngFor="let entry of padlet?.entries; last as l">
         <div class="ui card">
           <div class="ui content block">

@@ -4,8 +4,8 @@
        [padlet]="padlet" [routerLink]="padlet.id.toString()"></a>
 </div>
 
-<!--geht ned -> in Übung a ned-->
-<div *ngIf="!padlets" class="ui active dimmer">
-  <div class="ui large text loader">Daten werden geladen...</div>
-</div>
+<!--div class="ui middle aligned selection divided list" *ngIf="authService.isLoggedOut()">
+  <a *ngFor="let padlet of public_padlets" class="item bs-padlet-list-item"
+     [padlet]="padlet" [routerLink]="padlet.id.toString()"></a>
+</div-->
 

@@ -61,4 +61,8 @@ export class AuthenticationService {
   public isLoggedOut() : boolean {
     return !this.isLoggedIn();
   }
+
+  public getIdOfCurrentUser() {
+    return Number.parseInt(<string>sessionStorage.getItem("userId"));
+  }
 }

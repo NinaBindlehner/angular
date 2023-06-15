@@ -23,6 +23,7 @@ export class PadletFormComponent implements OnInit {
   errors : { [key: string]: string } = {}; //leeres Error-Array initialisieren
   isUpdatingPadlet = false; //abprüfen, ob neues oder bestehendes Padlet bearbeitet wird
   entries : FormArray; //ev weggeben
+  is_public = true;
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +57,7 @@ export class PadletFormComponent implements OnInit {
         id: this.padlet.id,
         title: [this.padlet.title, Validators.required],
         description: [this.padlet.description, Validators.required],
-        isPublic: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
+        is_public: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
       });
 
       this.padletForm.statusChanges.subscribe(() =>

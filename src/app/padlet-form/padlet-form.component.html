@@ -30,18 +30,10 @@
     <div *ngIf="errors['description']" class="ui negative message"> {{
       errors['description'] }} </div>
   </div>
-  <div class="field">
-    <label>
-    <input type="radio" value="public" formControlName="isPublic"> Öffentlich
-    </label>
-    <label>
-      <input type="radio" value="private" formControlName="isPublic"> Privat
-    </label>
-    <!--label>Öffentlich</label>
-    <radio formControlName="public"></radio>
-    <label>Privat</label>
-    <radio formControlName="private"></radio-->
-  </div>
+  <div class="ui checkbox">
+    <input type="checkbox" id="is_public" value="public" formControlName="is_public">
+    <label for="is_public"> Öffentlich</label>
+  </div><br><br>
   <!--div class="field">
     <label>Rating</label>
     <input type="number" formControlName="rating">
