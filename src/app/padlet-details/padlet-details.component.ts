@@ -19,12 +19,10 @@ export class PadletDetailsComponent {
 
   padlet : Padlet = PadletFactory.empty();
   entries : FormArray;
-  //entry : Entry = EntryFactory.empty(); //ev. weggeben
 
   constructor(
     private bs: PadletStoreService,
     private fb: FormBuilder,
-    //private es: EntryStoreService, //ev. weggeben -> nur wenn Entry löschen möglich in Detailansicht
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
@@ -35,14 +33,13 @@ export class PadletDetailsComponent {
 
   ngOnInit() {
     const params = this.route.snapshot.params; //Array wo die verschiedenen Parameter der URL zur Verfügung stehen
-    //this.bs.getSingle(params['id']).subscribe((p:Padlet) => this.padlet = p);
     this.bs.getSingle(params['id']).subscribe((p:Padlet) => {
       this.padlet = p;
       console.log(this.padlet.entries);
     });
   }
 
-  /*getRating (num: number) { //zuvor noch in padlet-details.component.html Ratings irgendwie einführen (Zeile 26-31) -> is bei mir eigene Entität
+  /*getRating (num: number) {
     return new Array(num);
   }*/
 

@@ -2,12 +2,7 @@
   <div class="header">{{ padlet?.title }}</div>
   <div class="description">{{ padlet?.description }}</div>
   <div class="metadata">
-    <!--span>id={{ padlet?.id }}</span-->
-    <!--span *ngFor="let entry of padlet.entries; last as l">
-        {{ entry.title}} {{entry.description }}
-        //<wenns nicht der letzte Autor ist also ungleich L ist, dann rendern wir Beistrich und Leerzeichen>
-        <span *ngIf="!l">, </span>
-    </span-->
+
   </div><br>
   <div class="metadata">
     <span>Ersteller*in: <img class="ui avatar image" src="{{ padlet?.user?.image }}" width="20em"> {{ padlet?.user?.firstname }} {{ padlet?.user?.lastname }}</span>
@@ -20,15 +15,5 @@
   <ng-template #private>
     <span class="ui purple label">Privat</span>
   </ng-template>
-  <!--div class="metadata">
-      <span>Ersteller*in: {{ padlet?.user }}</span>
-  </div-->
-  <!--div class="metadata">
-      <span *ngFor="let user of padlet?.users; last as l">
-        <img src="{{ user.image }}" width="25em">
-        {{ user.firstname}} {{ user.lastname }}
-        <wenns nicht der letzte User ist also ungleich L ist, dann rendern wir Beistrich und Leerzeichen>
-        <span *ngIf="!l">, </span>
-      </span>
-  </div-->
+
 </div>

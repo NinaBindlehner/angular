@@ -20,22 +20,20 @@ export class PadletFormComponent implements OnInit {
 
   padletForm : FormGroup;
   padlet : Padlet = PadletFactory.empty();
-  //entry : Entry = EntryFactory.empty(); //ev weggeben
   errors : { [key: string]: string } = {}; //leeres Error-Array initialisieren
   isUpdatingPadlet = false; //abprüfen, ob neues oder bestehendes Padlet bearbeitet wird
-  entries : FormArray; //ev weggeben
+  entries : FormArray;
   is_public = true;
 
   constructor(
     private fb: FormBuilder,
     private bs: PadletStoreService,
-    //private es: EntryStoreService,
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthenticationService
   ) {
     this.padletForm = this.fb.group({});
-    this.entries = this.fb.array([]); //ev. weggeben
+    this.entries = this.fb.array([]);
   }
 
     ngOnInit(): void {
@@ -54,13 +52,12 @@ export class PadletFormComponent implements OnInit {
 
     //einzelne Property vom Padlet an die Formularfelder binden + Validierung
     initPadlet() {
-      //this.buildEntriesArray();
       const user_id = this.authService.getIdOfCurrentUser();
       this.padletForm = this.fb.group({
         id: this.padlet.id,
         title: [this.padlet.title, Validators.required],
         description: [this.padlet.description, Validators.required],
-        is_public: this.padlet.is_public, //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
+        is_public: this.padlet.is_public,
         user_id: user_id
       });
 
@@ -68,21 +65,6 @@ export class PadletFormComponent implements OnInit {
         this.updateErrorMessages());
     }
 
-    /*buildEntriesArray() {
-      if(this.padlet.entries){
-        this.entries = this.fb.array([]);
-        for (let entry of this.padlet.entries) {
-          let fg = this.fb.group({
-            id: new FormControl(entry.id),
-            title: new FormControl(entry.title, [Validators.required]),
-            description: new FormControl(entry.description, [Validators.required]),
-            padlet_id: new FormControl(entry.padlet_id),
-            user_id: new FormControl(entry.user_id)
-          });
-          this.entries.push(fg);
-        }
-      }
-    }*/
 
     //Pusht Subformular also neue Form-Group in Entries-Array rein
     addEntriesControl() {
@@ -110,11 +92,7 @@ export class PadletFormComponent implements OnInit {
     }
 
     submitForm() {
-      /*this.padletForm.value.entries = this.padletForm.value.entries.filter(
-        (thumbnail: { url: string }) => thumbnail.url //ev. anpassen an Entries
-      )*/
       const padlet: Padlet = PadletFactory.fromObject(this.padletForm.value); //Werte aus Formular in neues Padlet
-      //padlet.users = this.padlet.users; //werden einfach rüberkopiert
 
       if (this.isUpdatingPadlet) {
         this.bs.update(padlet).subscribe(res => {

@@ -1,10 +1,3 @@
-<!--p>entry-form works!</p-->
-
-<!--div class="ui middle aligned selection divided list">
-  <a *ngFor="let entry of entries" class="item bs-padlet-details"
-     [entry]="entry" [routerLink]="entry.id.toString()"></a>
-</div-->
-
 <h1>Einträge</h1>
 <form class="ui large form" [formGroup]="entryForm"
       (ngSubmit)="submitForm()">
@@ -21,20 +14,9 @@
     <div *ngIf="errors['description']" class="ui negative message"> {{
       errors['description'] }} </div>
   </div>
-  <!--input type="hidden" formControlName="padlet_id">
-  <input type="hidden" formControlName="user_id"-->
-
   <button [routerLink]="['../']" class="ui tiny blue button">
     <i class="arrow left icon"></i>Zurück zur Übersicht
   </button>
-
-  <!--a class="ui tiny teal icon button" [routerLink]="['../../newpadlet/', entry.id]">
-    <i class="write icon"></i>Eintrag bearbeiten
-  </a-->
-
-  <!--button class="ui tiny violet labeled icon button" (click)="removeEntry()">
-    <i class="remove icon"></i>Eintrag löschen
-  </button-->
 
   <button *ngIf="authService.isLoggedIn()" class="ui tiny violet labeled icon button" (click)="removeEntry()">
     <i class="remove icon"></i>Eintrag löschen
@@ -42,11 +24,5 @@
 
   <button *ngIf="authService.isLoggedIn()" type="submit" class="ui button"
           [disabled]="entryForm.invalid">Speichern</button>
-
-  <!--button type="submit" class="ui button" (click)="addEntriesControl()"
-          [disabled]="entryForm.invalid">Neuen Eintrag speichern</button-->
-
-  <!--button type="submit" class="ui button" (click)="addEntriesControl()"
-          [disabled]="entryForm.invalid">Neuen Eintrag speichern</button-->
 
 </form>

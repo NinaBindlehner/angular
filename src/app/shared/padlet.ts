@@ -12,11 +12,9 @@ export class Padlet {
     public user_id: number, //FK user_id
     public created_at: Date,
     public updated_at: Date,
-    public users: User[], //Array Users ev. weggeben
+    public users: User[],
     public user: User,
-    public entries: Entry[] //Array Entries ev weggeben
-    //ev. Array von Entries bzw. Array von Users -> wär sinnvoll, aber hab i in Laravel glaub i ned so angegeben
-    //ev. irgendwas nullable???
+    public entries: Entry[]
   ) {
   }
 }

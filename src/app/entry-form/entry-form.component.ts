@@ -16,18 +16,8 @@ import {AuthenticationService} from "../shared/authentication.service";
   ]
 })
 export class EntryFormComponent implements OnInit {
-  //entry: Entry | undefined;
   entries: Entry[] = [];
-  //padlet_id: number | undefined;
 
-  /*constructor(private es: EntryStoreService) {
-  }
-
-  ngOnInit(): void {
-    this.es.getAll().subscribe(res => this.entries = res);
-  }*/
-
-  //padletForm : FormGroup;
   entryForm : FormGroup;
   entry : Entry = EntryFactory.empty();
   errors : { [key: string]: string } = {};
@@ -43,7 +33,6 @@ export class EntryFormComponent implements OnInit {
     public authService: AuthenticationService
   ) {
     this.entryForm = this.fb.group({});
-    //this.entries = this.fb.array([]); //ev. weggeben
   }
 
   ngOnInit(): void {
@@ -66,14 +55,12 @@ export class EntryFormComponent implements OnInit {
 
   //einzelne Property vom Padlet an die Formularfelder binden + Validierung
   initEntry() {
-    //this.buildEntriesArray();
     const user_id = this.authService.getIdOfCurrentUser();
     this.entryForm = this.fb.group({
       id: this.entry.id,
       title: [this.entry.title, Validators.required],
       description: [this.entry.description, Validators.required],
       padlet_id: [this.padlet_id],
-      //user_id: [this.entry.user_id]
       user_id: user_id
     });
     this.entryForm.statusChanges.subscribe(() =>
@@ -87,11 +74,6 @@ export class EntryFormComponent implements OnInit {
       this.toastr.success('Der Eintrag wurde erfolgreich gelöscht');
     }
   }
-
-  /*addEntriesControl() {
-    //this.entries.push(this.fb.group({id: 0, title: null, description: null, padlet_id: 0, user_id: 0}));
-    this.entries.push({id: 0, title: "", description: "", padlet_id: 0, user_id:0});
-  }*/
 
   updateErrorMessages() {
     console.log("Ist Formular invalid? " + this.entryForm.invalid);
