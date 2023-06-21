@@ -32,6 +32,7 @@ export class EntryFormComponent implements OnInit {
   entry : Entry = EntryFactory.empty();
   errors : { [key: string]: string } = {};
   isUpdatingEntry = false;
+  padlet_id: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,11 @@ export class EntryFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params["id"];
+    const id = this.route.snapshot.params["entries_id"];
+    this.route.params.subscribe(params => {
+      //padlet id aus URL auslesen um anschließend zuordnen zu können
+      this.padlet_id = this.route.snapshot.params["id"];
+    });
     if (id) {
       this.isUpdatingEntry = true; //haben id
       this.es.getSingle(id).subscribe(
@@ -62,11 +67,14 @@ export class EntryFormComponent implements OnInit {
   //einzelne Property vom Padlet an die Formularfelder binden + Validierung
   initEntry() {
     //this.buildEntriesArray();
+    const user_id = this.authService.getIdOfCurrentUser();
     this.entryForm = this.fb.group({
       id: this.entry.id,
       title: [this.entry.title, Validators.required],
       description: [this.entry.description, Validators.required],
-      //isPublic: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
+      padlet_id: [this.padlet_id],
+      //user_id: [this.entry.user_id]
+      user_id: user_id
     });
     this.entryForm.statusChanges.subscribe(() =>
       this.updateErrorMessages());
@@ -118,10 +126,11 @@ export class EntryFormComponent implements OnInit {
           relativeTo: this.route
         });
       });
+      console.log(entry);
     } else { //neuen Eintrag anlegen
       //entry.user_id = 1;
       const user_id = this.authService.getIdOfCurrentUser();
-      //console.log(entry);
+      console.log(entry);
       this.es.create(entry).subscribe(res => {
         this.entry = EntryFactory.empty();
         this.entryForm.reset(EntryFactory.empty()); //reset also alle Werte, die im Entry-Formular drinnen sind, werden mit EmptyEntry-Objekt überschrieben

@@ -12,17 +12,35 @@ import {AuthenticationService} from "../shared/authentication.service";
   ]
 })
 export class PadletListComponent implements OnInit {
-  padlets: Padlet[] = [];
-  //public_padlets: Padlet[] = [];
+  all_padlets: Padlet[] = [];
+  personal_padlets: Padlet [] = [];
 
   constructor(private bs: PadletStoreService, private toastr: ToastrService, public authService: AuthenticationService) {
 
   }
 
-  ngOnInit(): void {
-    this.bs.getAll().subscribe(res => this.padlets = res);
-    //this.bs.getPublic().subscribe(res => this.public_padlets = res);
-    this.toastr.success('Die Liste mit allen Padlets wurde erfolgreich geladen', 'Alles OK');
+  ngOnInit():void {
+    const userId = this.authService.getIdOfCurrentUser();
+
+    //an Observable subscriben, wenn es ein result gibt, dem padlet array zuweisen
+    this.bs.getAll().subscribe(padlets => {
+      // Filtere die Padlets nach user_id
+      this.personal_padlets = padlets.filter(padlet => padlet.user_id === Number(userId)); //Number = UserId vom Token
+    });
+
+    //an Observable subscriben, wenn es ein result gibt, dem padlet array zuweisen
+    this.bs.getAll().subscribe(padlets => {
+      if(this.authService.isLoggedIn()){
+        this.all_padlets = padlets.filter(padlet => padlet.user_id !== Number(userId)
+          //entweder public oder sonst jene wo angemeldeter User eingeladen wurde
+          && (padlet.is_public || padlet.users?.some(user => user.id === Number(userId))));
+      }
+
+      else{
+        //nicht eingeloggte User sehen nur öffentliche Padlets
+        this.all_padlets = padlets.filter(padlet => padlet.user_id !== Number(userId) && padlet.is_public);
+      }
+    });
   }
 
 }

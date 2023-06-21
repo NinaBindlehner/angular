@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'newpadlet', component: PadletFormComponent, canActivate:[CanNavigateToNewPadletGuard]},
   { path: 'newpadlet/:id', component: PadletFormComponent, canActivate:[CanNavigateToNewPadletGuard] },
   { path: 'padlets/:id/entries', component: EntryFormComponent, canActivate:[CanNavigateToNewPadletGuard] }, //nur lassen, wenn i des mit Entries neu anlegen nu schaff
-  { path: 'padlets/:id/entries/:id', component: EntryFormComponent, canActivate:[CanNavigateToNewPadletGuard] },
+  { path: 'padlets/:id/entries/:entries_id', component: EntryFormComponent, canActivate:[CanNavigateToNewPadletGuard] },
   { path: 'login', component: LoginComponent }
 
 ];

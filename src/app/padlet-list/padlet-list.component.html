@@ -1,6 +1,13 @@
 <!--p>padlet-list works!</p-->
+<h3>Eigene Paldets</h3>
 <div class="ui middle aligned selection divided list">
-    <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
+  <a *ngFor="let padlet of personal_padlets" class="item bs-padlet-list-item"
+     [padlet]="padlet" [routerLink]="padlet.id.toString()"></a>
+</div>
+
+<h3>Fremde Padlets</h3>
+<div class="ui middle aligned selection divided list">
+    <a *ngFor="let padlet of all_padlets" class="item bs-padlet-list-item"
        [padlet]="padlet" [routerLink]="padlet.id.toString()"></a>
 </div>
 

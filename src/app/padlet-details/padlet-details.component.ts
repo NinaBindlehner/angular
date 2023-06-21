@@ -35,7 +35,11 @@ export class PadletDetailsComponent {
 
   ngOnInit() {
     const params = this.route.snapshot.params; //Array wo die verschiedenen Parameter der URL zur Verfügung stehen
-    this.bs.getSingle(params['id']).subscribe((p:Padlet) => this.padlet = p);
+    //this.bs.getSingle(params['id']).subscribe((p:Padlet) => this.padlet = p);
+    this.bs.getSingle(params['id']).subscribe((p:Padlet) => {
+      this.padlet = p;
+      console.log(this.padlet.entries);
+    });
   }
 
   /*getRating (num: number) { //zuvor noch in padlet-details.component.html Ratings irgendwie einführen (Zeile 26-31) -> is bei mir eigene Entität
@@ -54,5 +58,4 @@ export class PadletDetailsComponent {
   addEntriesControl() {
     this.entries.push(this.fb.group({id: 0, title: "", description: "", padlet_id: 0, user_id: 0}));
   }
-
 }

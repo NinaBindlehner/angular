@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {EntryStoreService} from "../shared/entry-store.service";
 import {EntryFactory} from "../shared/entry-factory";
 import {PadletFormErrorMessages} from "./padlet-form-error-messages";
+import {AuthenticationService} from "../shared/authentication.service";
 //import {relative} from "@angular/compiler-cli";
 
 @Component({
@@ -30,7 +31,8 @@ export class PadletFormComponent implements OnInit {
     private bs: PadletStoreService,
     //private es: EntryStoreService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public authService: AuthenticationService
   ) {
     this.padletForm = this.fb.group({});
     this.entries = this.fb.array([]); //ev. weggeben
@@ -53,11 +55,13 @@ export class PadletFormComponent implements OnInit {
     //einzelne Property vom Padlet an die Formularfelder binden + Validierung
     initPadlet() {
       //this.buildEntriesArray();
+      const user_id = this.authService.getIdOfCurrentUser();
       this.padletForm = this.fb.group({
         id: this.padlet.id,
         title: [this.padlet.title, Validators.required],
         description: [this.padlet.description, Validators.required],
-        is_public: this.padlet.is_public //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
+        is_public: this.padlet.is_public, //sobald i des auskommentiere, zeigts mir beim Bearbeiten vom Padlet die Felder wieder ausgefüllt an, sonst verzögert
+        user_id: user_id
       });
 
       this.padletForm.statusChanges.subscribe(() =>
@@ -119,7 +123,7 @@ export class PadletFormComponent implements OnInit {
           });
       });
     } else { //neues Padlet anlegen
-        padlet.user_id = 1;
+        padlet.user_id = this.authService.getIdOfCurrentUser();
         console.log(padlet);
         this.bs.create(padlet).subscribe(res => {
           this.padlet = PadletFactory.empty();

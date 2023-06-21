@@ -6,13 +6,6 @@
       {{ padlet.description }}
     </div>
     <!--div class="ui heart rating"-->
-    <div>
-      <i class="teal heart icon"></i>
-      <i class="teal heart icon"></i>
-      <i class="teal heart icon"></i>
-      <i class="teal heart icon"></i>
-      <i class="grey heart icon"></i>
-    </div>
     <div class="ui divider"></div>
     <div>Erstellt am: {{ padlet.created_at | date:'dd.MM.yyyy' }}</div>
     <div>Zuletzt bearbeitet am: {{ padlet.updated_at | date:'dd.MM.yyyy' }}</div>
@@ -39,6 +32,14 @@
           <div class="ui content block">
               <h5 class="ui header">{{ entry.title}}</h5>
                {{ entry.description }} <br><br>
+                Erstellt von User mit der ID: {{ entry.user_id }} <br><br>
+                <div>
+                  <i class="teal heart icon"></i>
+                  <i class="teal heart icon"></i>
+                  <i class="teal heart icon"></i>
+                  <i class="teal heart icon"></i>
+                  <i class="grey heart icon"></i>
+                </div> <br>
               <a *ngIf="authService.isLoggedIn()" class="ui tiny teal icon button" [routerLink]="['/padlets/', padlet.id, 'entries', entry.id]">
                 <!--padlets/:id/entries/:id
                 [routerLink]="['../../newpadlet/', padlet.id]"-->
